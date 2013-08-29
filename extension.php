@@ -52,8 +52,12 @@ class Extension extends \Bolt\BaseExtension
     /**
      * Twig function {{ rss_aggregator() }} in RSS Aggregator extension.
      */
-    function twigRss_aggregator($url, $options = array())
+    function twigRss_aggregator($url = false, $options = array())
     {
+
+        if(!$url) {
+            return new \Twig_Markup('External feed could not be loaded! No URL specified.', 'UTF-8'); 
+        }
 
         // Handle options parameter
         $defaultLimit = 5;
