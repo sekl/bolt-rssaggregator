@@ -20,6 +20,7 @@ Example: `{{ rss_aggregator('http://rss.cnn.com/rss/edition.rss') }}`
 	+ showDesc: Show the full description, default: false
 	+ showDate: Show the date, default: false  
 	+ descCutoff: Number of characters to display in the description, default: 100
+	+ defaultCacheMaxAge: The time a cached feed stays valid in minutes, default: 15
 
 Customization
 =======================
@@ -30,8 +31,3 @@ Support
 =======================
 
 Please use the issue tracker: [Github](http://github.com/sekl/bolt-rssaggregator/issues)
-
-To Do
-=======================
-
-+Caching

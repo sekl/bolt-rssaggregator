@@ -59,11 +59,20 @@ class Extension extends \Bolt\BaseExtension
             return new \Twig_Markup('External feed could not be loaded! No URL specified.', 'UTF-8'); 
         }
 
-        // Handle options parameter
+        // Construct a cache handle from the URL
+        $handle = preg_replace('/[^A-Za-z0-9_-]+/', '', $url);
+        $handle = str_replace('httpwww', '', $handle);
+        $cachedir = __DIR__.'/../../cache/rssaggregator/';
+        $cachefile = $cachedir.'/'.$handle.'.cache';
+
+        // default options
         $defaultLimit = 5;
         $defaultShowDesc = false;
         $defaultShowDate = false;
         $defaultDescCutoff = 100;
+        $defaultCacheMaxAge = 15;
+
+        // Handle options parameter
 
         if(!array_key_exists('limit', $options)) {
             $options['limit'] = $defaultLimit;
@@ -76,6 +85,24 @@ class Extension extends \Bolt\BaseExtension
         }
         if(!array_key_exists('descCutoff', $options)) {
             $options['descCutoff'] = $defaultDescCutoff;
+        }
+        if(!array_key_exists('cacheMaxAge', $options)) {
+            $options['cacheMaxAge'] = $defaultCacheMaxAge;
+        }
+
+        // Create cache directory if it does not exist
+        if (!file_exists($cachedir)) {
+            mkdir($cachedir, 0777, true);
+        }
+        
+
+        // Use cache file if possible
+        if (file_exists($cachefile)) {
+            $now = time();
+            $cachetime = filemtime($cachefile);
+            if ($now - $cachetime < $options['cacheMaxAge'] * 60) {
+                return new \Twig_Markup(file_get_contents($cachefile), 'UTF-8');
+            }
         }
 
         // Make sure we are sending a user agent header with the request
@@ -140,6 +167,9 @@ class Extension extends \Bolt\BaseExtension
         }
 
         $html .= '</ul></div>';
+
+        // create or refresh cache file
+        file_put_contents($cachefile, $html);
 
         return new \Twig_Markup($html, 'UTF-8');
     }
