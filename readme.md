@@ -1,7 +1,7 @@
-RSS Aggregator
+Bolt RSS Aggregator
 =======================
 
-Shows feed items of external RSS feeds anywhere on your site.
+A RSS Aggregator extension for the [Bolt CMS](http://www.bolt.cm *Bolt CMS*). Shows feed items of external RSS feeds anywhere on your site.
 
 Instructions
 =======================
@@ -21,3 +21,8 @@ Example:
 	+ limit: The amount of links to be shown, default: 5
 	+ showDesc: Show the full description, default: false
 	+ showDate: Show the date, default: false  
+
+Support
+=======================
+
+Please use the issue tracker: [Github](http://github.com/sekl/bolt-rssaggregator/issues *Issue tracker*)
