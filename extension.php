@@ -102,9 +102,9 @@ class Extension extends \Bolt\BaseExtension
         $items = array();
 
         for($i = 0; $i < $options['limit']; $i++) {
-                $title = str_replace(' & ', ' &amp; ', $feed[$i]['title']);
-                $link = $feed[$i]['link'];
-                $desc = $feed[$i]['desc'];
+                $title = htmlentities($feed[$i]['title'], ENT_QUOTES, "UTF-8");
+                $link = htmlentities($feed[$i]['link'], ENT_QUOTES, "UTF-8");
+                $desc = htmlentities($feed[$i]['desc'], ENT_QUOTES, "UTF-8");
                 $date = date('l F d, Y', strtotime($feed[$i]['date']));
                 array_push($items, array(
                     'title' => $title,
