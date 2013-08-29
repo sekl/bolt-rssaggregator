@@ -21,6 +21,12 @@ Example:
 	+ limit: The amount of links to be shown, default: 5
 	+ showDesc: Show the full description, default: false
 	+ showDate: Show the date, default: false  
+	+ descCutoff: Number of characters to display in the description, default: 100
+
+Customization
+=======================
+
+Override the CSS styles defined in RSSAggregator/assets/rssaggregator.css in your own stylesheet.
 
 Support
 =======================

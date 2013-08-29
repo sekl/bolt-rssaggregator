@@ -59,6 +59,7 @@ class Extension extends \Bolt\BaseExtension
         $defaultLimit = 5;
         $defaultShowDesc = false;
         $defaultShowDate = false;
+        $defaultDescCutoff = 100;
 
         if(!array_key_exists('limit', $options)) {
             $options['limit'] = $defaultLimit;
@@ -69,11 +70,14 @@ class Extension extends \Bolt\BaseExtension
         if(!array_key_exists('showDate', $options)) {
             $options['showDate'] = $defaultShowDate;
         }
+        if(!array_key_exists('descCutoff', $options)) {
+            $options['descCutoff'] = $defaultDescCutoff;
+        }
 
         // Make sure we are sending a user agent header with the request
         $streamOpts = array(
             'http' => array(
-                'user_agent' => 'PHP libxml agent',
+                'user_agent' => 'libxml',
             )
         );
 
@@ -102,9 +106,12 @@ class Extension extends \Bolt\BaseExtension
         $items = array();
 
         for($i = 0; $i < $options['limit']; $i++) {
-                $title = htmlentities($feed[$i]['title'], ENT_QUOTES, "UTF-8");
-                $link = htmlentities($feed[$i]['link'], ENT_QUOTES, "UTF-8");
-                $desc = htmlentities($feed[$i]['desc'], ENT_QUOTES, "UTF-8");
+                $title = htmlentities(strip_tags($feed[$i]['title']), ENT_QUOTES, "UTF-8");
+                $link = htmlentities(strip_tags($feed[$i]['link']), ENT_QUOTES, "UTF-8");
+                $desc = htmlentities(strip_tags($feed[$i]['desc']), ENT_QUOTES, "UTF-8");
+                $desc = substr($desc, 0, strpos($desc, ' ', $options['descCutoff']));
+                $desc = str_replace('&amp;nbsp;', '', $desc);
+                $desc .= '...';
                 $date = date('l F d, Y', strtotime($feed[$i]['date']));
                 array_push($items, array(
                     'title' => $title,
@@ -132,8 +139,4 @@ class Extension extends \Bolt\BaseExtension
 
         return new \Twig_Markup($html, 'UTF-8');
     }
-
-
 }
-
-
