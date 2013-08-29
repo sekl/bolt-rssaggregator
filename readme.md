@@ -1,7 +1,7 @@
 Bolt RSS Aggregator
 =======================
 
-A RSS Aggregator extension for the [Bolt CMS](http://www.bolt.cm *Bolt CMS*). Shows feed items of external RSS feeds anywhere on your site.
+A RSS Aggregator extension for the [Bolt CMS](http://www.bolt.cm). Shows feed items of external RSS feeds anywhere on your site.
 
 Instructions
 =======================
@@ -31,4 +31,4 @@ Override the CSS styles defined in RSSAggregator/assets/rssaggregator.css in you
 Support
 =======================
 
-Please use the issue tracker: [Github](http://github.com/sekl/bolt-rssaggregator/issues *Issue tracker*)
+Please use the issue tracker: [Github](http://github.com/sekl/bolt-rssaggregator/issues)
