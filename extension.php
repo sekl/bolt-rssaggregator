@@ -136,11 +136,16 @@ class Extension extends \Bolt\BaseExtension
 
         $items = array();
 
-        for($i = 0; $i < $options['limit']; $i++) {
+        // if limit is set higher than the actual amount of items in the feed, adjust limit
+        $limit = $options['limit'] > count($feed) ? count($feed) : $options['limit'];
+
+        for($i = 0; $i < $limit; $i++) {
                 $title = htmlentities(strip_tags($feed[$i]['title']), ENT_QUOTES, "UTF-8");
                 $link = htmlentities(strip_tags($feed[$i]['link']), ENT_QUOTES, "UTF-8");
                 $desc = htmlentities(strip_tags($feed[$i]['desc']), ENT_QUOTES, "UTF-8");
-                $desc = substr($desc, 0, strpos($desc, ' ', $options['descCutoff']));
+                // if cutOff is set higher than the actual length of the description, adjust it
+                $cutOff = $options['descCutoff'] > strlen($desc) ? strlen($desc) : $options['descCutoff'];
+                $desc = substr($desc, 0, strpos($desc, ' ', $cutOff));
                 $desc = str_replace('&amp;nbsp;', '', $desc);
                 $desc .= '...';
                 $date = date('l F d, Y', strtotime($feed[$i]['date']));
