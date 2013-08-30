@@ -6,7 +6,7 @@ A RSS Aggregator extension for the [Bolt CMS](http://www.bolt.cm). Shows feed it
 Instructions
 =======================
 
-1. Download the extension and extract it into your app/extensions folder.
+1. Download the extension and place it into your app/extensions folder as app/extensions/RSSAggregator
 
 2. Activate it in your app/config/config.yml by adding RSSAggregator to the `enabled_extensions` option.  
 Example: `enabled_extensions: [ RSSAggregator, your_other_extensions... ]`
@@ -20,7 +20,7 @@ Example: `{{ rss_aggregator('http://rss.cnn.com/rss/edition.rss') }}`
 	+ showDesc: Show the full description, default: false
 	+ showDate: Show the date, default: false  
 	+ descCutoff: Number of characters to display in the description, default: 100
-	+ defaultCacheMaxAge: The time a cached feed stays valid in minutes, default: 15
+	+ defaultCacheMaxAge: The time a cached feed stays valid in minutes, default: 15, set to 0 to disable caching
 
 Customization
 =======================
